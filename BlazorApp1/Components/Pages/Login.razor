@@ -1,18 +1,50 @@
 ﻿@page "/"
-
+@using BlazorApp1.Services;
 
 <section class="login-page">
+	<form class="loginform">
+		<!-- Bind the email input to the private string "email" -->
+		<input type="email" @bind="email" placeholder="Email" required />
+		<!-- Bind the password input to the private string "pass" -->
+		<input type="password" @bind="pass" placeholder="Password" required />
 
-    <form class="loginform" action="/Login/Login" method="post">
+		<button type="button" @onclick="OnSubmit">Login</button>
+	</form>
 
-        <input type="email" name="username" placeholder="Email" required value="daliraki19@gmail.com" />
-        <input type="password" name="password" placeholder="Password" required value="JEyO96Rls5F7dzEM" />
-
-
-
-        <button type="submit">Login</button>
-
-
-    </form>
-
+	
 </section>
+
+@code {
+	private String pass { get; set; }
+	private String email { get; set; }
+
+	private void OnSubmit()
+	{
+		bool result = testlogin();
+
+		if (result)
+		{
+			Console.WriteLine("successful!");
+		}
+		else
+		{
+			Console.WriteLine("Failed!");
+		}
+	}
+
+	private bool testlogin()
+	{
+		UsersService usersService = new UsersService();
+
+		return usersService.Checkuser("Users.xml", "john.doe@example.com", "password123");
+	}
+
+	
+
+	
+
+
+
+	
+
+}
