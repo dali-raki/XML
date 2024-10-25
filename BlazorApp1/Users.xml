@@ -12,5 +12,11 @@
 		<Password>securepassword</Password>
 		<Role>2</Role>
 	</User>
+	<User>
+		<id>3</id>
+		<Email></Email>
+		<Password></Password>
+		<Role>1</Role>
+	</User>
 </Users>
 

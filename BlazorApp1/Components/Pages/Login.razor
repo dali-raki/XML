@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using BlazorApp1.Services;
+@rendermode InteractiveServer
 
 <section class="login-page">
 	<form class="loginform">
@@ -14,9 +15,15 @@
 	
 </section>
 
+
 @code {
-	private String pass { get; set; }
-	private String email { get; set; }
+	private string email { get; set; } = string.Empty;
+	private string pass { get; set; } = string.Empty;
+	private string role { get; set; } = "1";
+	private bool testlog;
+	@inject NavigationManager NavManager
+	UsersService usersService = new UsersService();
+
 
 	private void OnSubmit()
 	{
@@ -25,6 +32,18 @@
 		if (result)
 		{
 			Console.WriteLine("successful!");
+
+			string resultrole = usersService.getrole("Users.xml", email, pass);
+
+			if (resultrole == "1")
+			{
+				NavManager.NavigateTo("/user");
+			}
+
+			if (resultrole == "2")
+			{
+				NavManager.NavigateTo("/Error");
+			}
 		}
 		else
 		{
@@ -34,9 +53,9 @@
 
 	private bool testlogin()
 	{
-		UsersService usersService = new UsersService();
+		
 
-		return usersService.Checkuser("Users.xml", "john.doe@example.com", "password123");
+		return usersService.Checkuser("Users.xml", email, pass);
 	}
 
 	

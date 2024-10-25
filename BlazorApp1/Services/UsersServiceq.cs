@@ -44,6 +44,38 @@ namespace BlazorApp1.Services
         }
 
 
+        public string getrole(string namefile, string email, string password)
+        {
+            string role = "No role";
+
+			XDocument xmlDoc = XDocument.Load(namefile);
+			var userXML = xmlDoc.Element("Users")?.Elements("User");
+
+			foreach (var user in userXML)
+			{
+				String emailtest = user.Element("Email")?.Value;
+				String passtest = user.Element("Password")?.Value;
+				String roletest = user.Element("Role")?.Value;
+
+
+
+				if (emailtest == email && passtest == password)
+				{
+                    role = roletest;
+					return role;
+				}
+
+
+			}
+			Console.WriteLine(role);
+			return role;
+
+		}
+
+
+        
+              
+
 
     }
 }
